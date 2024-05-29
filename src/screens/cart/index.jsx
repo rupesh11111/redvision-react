@@ -78,7 +78,7 @@ const Cart = () => {
       <Typography variant="h6" style={{ marginTop: '20px',display:"flex",justifyContent:"flex-end" }}>
         Total: ₹{cartItems.reduce((total, item) => total + item?.product?.price * item.quantity, 0).toFixed(2)}
       </Typography>
-      {cartItems.length ||
+      {cartItems.length &&
       <Button variant="contained" onClick={()=>navigate(`/payment?user_id=${cart.user}`)} sx={{ marginTop: "20px" }}>
           Pay
         </Button>}
