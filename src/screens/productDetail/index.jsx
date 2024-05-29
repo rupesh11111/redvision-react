@@ -6,7 +6,10 @@ const ProductDetail = () => {
     const { id } = useParams();
     const [product, setProduct] = useState([]);
     const token = localStorage.getItem('token')
-
+    let authUser = localStorage.getItem('user') || "{}"
+    authUser = (authUser == undefined) ? "{}" : authUser;
+    authUser = JSON.parse(authUser)
+  
     useEffect(() => {
         axios.get(`http://127.0.0.1:5000/api/products/${id}`, { headers: { Authorization: token } }).then((res) => setProduct(res?.data?.data)).catch(err => console.log(err));
     }, [token])
@@ -32,7 +35,8 @@ const ProductDetail = () => {
                     <Typography sx={{ fontSize: '25px', textAlign: 'left', color: 'grey', lineHeight: '120px' }}>
                         Rs {product.price} /-
                     </Typography>
-                    <Button fullWidth variant='contained' sx={{ marginTop: '20px' }} onClick={() => addToCart(product._id)}>Add to Cart</Button>
+
+                    {authUser.role == "admin" || <Button fullWidth variant='contained' sx={{ marginTop: '20px' }} onClick={() => addToCart(product._id)}>Add to Cart</Button>}
 
                 </Box>
                 <Box sx={{ width: { xs: '100%', sm: '100%', md: '35%', lg: '35%', xl: '35%' }, height: { xs: '50%', sm: '50%', md: '100%', lg: '100%', xl: '100%' } }}>

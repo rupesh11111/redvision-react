@@ -11,6 +11,9 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = ({ cart, setDrawerOpen , setToken , token }) => {
 
   const navigate = useNavigate()
+  let authUser = localStorage.getItem('user') || "{}"
+  authUser = (authUser == undefined) ? "{}" : authUser;
+  authUser = JSON.parse(authUser)
 
   const clickHandle = () => {
       if(token) {
@@ -39,8 +42,8 @@ const Navbar = ({ cart, setDrawerOpen , setToken , token }) => {
             RedVision
           </Typography>
           {token ?<div>
-          <Button color="inherit" onClick={ clickHandle }> {token ? "Logout" : "Login"} </Button>
-          <Button color="inherit" onClick={ () => navigate('./cart') }>Cart({(cart?.products)?.length})</Button>
+           <Button color="inherit" onClick={ clickHandle }> {token ? "Logout" : "Login"} </Button>
+           {authUser != 'admin' || <Button color="inherit" onClick={ () => navigate('./cart') }>Cart({(cart?.products)?.length})</Button>}
           </div>: <div></div>}
         </Toolbar>
       </AppBar>

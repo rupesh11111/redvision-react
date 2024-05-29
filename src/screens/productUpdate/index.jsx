@@ -22,6 +22,8 @@ const ProductUpdate = () => {
     stock: "",
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     axios.get(`http://127.0.0.1:5000/api/products/${id}`,{
       headers: {
@@ -34,8 +36,6 @@ const ProductUpdate = () => {
         console.log(e);
     })
   },[])
-
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -63,12 +63,13 @@ const ProductUpdate = () => {
     }
 
     const token = localStorage.getItem("token");
-    axios.put(`http://127.0.0.1:5000/api/products/`, formData, {
+    axios.put(`http://127.0.0.1:5000/api/products/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
+        navigate('/products')
         console.log(res);
       })
       .catch((error) => {

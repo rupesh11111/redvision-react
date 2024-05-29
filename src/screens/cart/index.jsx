@@ -8,6 +8,9 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const token = localStorage.getItem('token')
   const navigate = useNavigate()
+  let authUser = localStorage.getItem('user') || "{}"
+  authUser = (authUser == undefined) ? "{}" : authUser;
+  authUser = JSON.parse(authUser)
   
   async function getCart() {
     await axios.get('http://127.0.0.1:5000/api/carts', { headers: { Authorization: token } }).then((res) =>{

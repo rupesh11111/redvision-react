@@ -14,7 +14,7 @@ const AdminRoute = (props) => {
     if (!login) {
       navigate('/signin')
     }
-    if(authUser != "admin") {
+    if(authUser.role != "admin") {
       navigate('/')
     }
   }, [])
