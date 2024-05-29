@@ -2,7 +2,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
  
 export const HttpService = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "http://15.206.92.112/api",
 });
  
 HttpService.interceptors.request.use((config) => {

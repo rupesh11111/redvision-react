@@ -7,7 +7,7 @@ const Order = () => {
     const token = localStorage.getItem('token')
 
     async function getOrder() {
-        await axios.get('http://127.0.0.1:5000/api/orders',{ headers: { Authorization: token } }).then((res) => {
+        await axios.get('https://redvision-node.onrender.com/api/orders',{ headers: { Authorization: token } }).then((res) => {
             setOrders(res?.data?.data);
             console.log(res?.data?.data);
         }).catch(err => console.log(err));

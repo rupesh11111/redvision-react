@@ -13,7 +13,7 @@ const Cart = () => {
   authUser = JSON.parse(authUser)
   
   async function getCart() {
-    await axios.get('http://127.0.0.1:5000/api/carts', { headers: { Authorization: token } }).then((res) =>{
+    await axios.get('https://redvision-node.onrender.com/api/carts', { headers: { Authorization: token } }).then((res) =>{
       setCartItems(res?.data?.data?.products);
       setCart(res?.data?.data)
     }).catch(err => console.log(err));  
@@ -24,14 +24,14 @@ const Cart = () => {
   }, [])
  
   const removeFromCart = (id) => {
-    axios.delete(`http://127.0.0.1:5000/api/carts/${id}`, { headers: { Authorization: token } }).then((res) =>{
+    axios.delete(`https://redvision-node.onrender.com/api/carts/${id}`, { headers: { Authorization: token } }).then((res) =>{
       setCartItems(cartItems.filter(item => item.product._id !== id ));
     }).catch(err => console.log(err));
  };
  
   const increaseQuantity = (id) => {
     async function increaseQua() {
-      await axios.post(`http://127.0.0.1:5000/api/carts/${id}`, {
+      await axios.post(`https://redvision-node.onrender.com/api/carts/${id}`, {
         action: "increase"
       }, { headers: { Authorization: token } }).then((res) => {
         setCartItems(cartItems.map(item => item.product._id === id ? { ...item, quantity: item.quantity + 1 } : item));
@@ -42,7 +42,7 @@ const Cart = () => {
  
   const decreaseQuantity = (id) => {
     async function increaseQua() {
-      await axios.post(`http://127.0.0.1:5000/api/carts/${id}`, {
+      await axios.post(`https://redvision-node.onrender.com/api/carts/${id}`, {
         action: "decrease"
       }, { headers: { Authorization: token } }).then((res) => {
         setCartItems(cartItems.map(item => item.product._id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item));

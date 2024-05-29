@@ -17,7 +17,7 @@ const ProductList = () => {
   }, [token])
 
   const handleApi = () => {
-    axios.get('http://127.0.0.1:5000/api/products', { headers: { Authorization: token } }).then((res) => setProducts(res?.data?.data)).catch(err => console.log(err));
+    axios.get('https://redvision-node.onrender.com/api/products', { headers: { Authorization: token } }).then((res) => setProducts(res?.data?.data)).catch(err => console.log(err));
   }
 
   return (

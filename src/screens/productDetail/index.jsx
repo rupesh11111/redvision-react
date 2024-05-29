@@ -11,12 +11,12 @@ const ProductDetail = () => {
     authUser = JSON.parse(authUser)
   
     useEffect(() => {
-        axios.get(`http://127.0.0.1:5000/api/products/${id}`, { headers: { Authorization: token } }).then((res) => setProduct(res?.data?.data)).catch(err => console.log(err));
+        axios.get(`https://redvision-node.onrender.com/api/products/${id}`, { headers: { Authorization: token } }).then((res) => setProduct(res?.data?.data)).catch(err => console.log(err));
     }, [token])
 
     const addToCart = (productId) => {
         const bodyData = { productId, quantity: 1 }; // Add any other necessary data here
-        axios.post(`http://127.0.0.1:5000/api/carts`,bodyData, { headers: { Authorization: token } }).then((res) => console.log(res)).catch(err => console.log(err));
+        axios.post(`https://redvision-node.onrender.com/api/carts`,bodyData, { headers: { Authorization: token } }).then((res) => console.log(res)).catch(err => console.log(err));
     };
 
     return (

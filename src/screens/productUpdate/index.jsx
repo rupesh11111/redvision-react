@@ -25,7 +25,7 @@ const ProductUpdate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5000/api/products/${id}`,{
+    axios.get(`https://redvision-node.onrender.com/api/products/${id}`,{
       headers: {
         Authorization: token
       }
@@ -63,7 +63,7 @@ const ProductUpdate = () => {
     }
 
     const token = localStorage.getItem("token");
-    axios.put(`http://127.0.0.1:5000/api/products/${id}`, formData, {
+    axios.put(`https://redvision-node.onrender.com/api/products/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

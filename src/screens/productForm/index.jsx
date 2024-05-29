@@ -45,7 +45,7 @@ const ProductForm = () => {
 
     const token = localStorage.getItem("token");
     axios
-      .post("http://127.0.0.1:5000/api/products", formData, {
+      .post("https://redvision-node.onrender.com/api/products", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

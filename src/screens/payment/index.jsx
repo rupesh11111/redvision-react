@@ -34,7 +34,7 @@ const Payment = () => {
   };
 
   async function createOrder() {
-    await axios.post('http://127.0.0.1:5000/api/orders', {}, {
+    await axios.post('https://redvision-node.onrender.com/api/orders', {}, {
       headers: { Authorization: token }
     }).then((res) => {
       console.log(res.data.data);

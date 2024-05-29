@@ -24,7 +24,7 @@ function App() {
   const [cart, setCart] = useState(0);
   
   useEffect(() => {
-    axios.get(`http://127.0.0.1:5000/api/carts`, { headers: { Authorization: token } }).then((res) => setCart(res?.data?.data)).catch(err => console.log(err));
+    axios.get(`https://redvision-node.onrender.com/api/carts`, { headers: { Authorization: token } }).then((res) => setCart(res?.data?.data)).catch(err => console.log(err));
   }, [token])
 
 

@@ -22,7 +22,7 @@ const SignIn = ({setToken}) => {
   }
 
   const handleSubmit = () => {
-    axios.post('http://127.0.0.1:8000/api/login', input).then((res) => {
+    axios.post('http://15.206.92.112/api/login', input).then((res) => {
       localStorage.setItem('token',res?.data?.data?.token);
       localStorage.setItem('user',JSON.stringify(res?.data?.data?.user));
       setToken(res?.data?.data?.token)
