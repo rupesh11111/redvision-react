@@ -5,15 +5,17 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const SignUp = () => {
+const SignUp = ({setToken}) => {
   const [input, setInput] = useState({
-    username: "",
+    name: "",
     mobile: "",
     email: "",
     password: "",
+    password_confirmation: "",
   });
-  const Navigate=useNavigate()
+  const Navigate = useNavigate()
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -25,13 +27,15 @@ const SignUp = () => {
   };
 
   const handleSubmit = () => {
-    if(input.username === '' || input.mobile === '' || input.email === '' || input.password === ''){
-        alert("plz fill credentials")
-    }else{
-        console.log("Submitted form data:", input);
-        Navigate('/signin')
-    }
-   
+    axios.post('http://127.0.0.1:8000/api/register', input).then((res) => {
+      console.log(res.data.data);
+      localStorage.setItem('token',res.data.data.token);
+      localStorage.setItem('user',JSON.stringify(res?.data?.data?.user));
+      setToken(res?.data?.data?.token)
+      Navigate('/');
+    }).catch((error) => {
+      console.log()
+    });
   };
 
   return (
@@ -61,8 +65,8 @@ const SignUp = () => {
             </Typography>
             <TextField
               label="Username"
-              name="username"
-              value={input?.username}
+              name="name"
+              value={input?.name}
               onChange={handleChange}
               required
               sx={{ width: "100%" }} // Full width on all screens
@@ -118,11 +122,28 @@ const SignUp = () => {
               sx={{ width: "100%" }}
             />
           </Grid>
+          <Grid item xs={12}>
+            <Typography
+              sx={{ textAlign: "left", lineHeight: "45px", fontWeight: "700" }}
+            >
+              Confirm Password
+            </Typography>
+            <TextField
+              label="Password"
+              name="password_confirmation"
+              value={input?.password_confirmation}
+              onChange={handleChange}
+              type="password"
+              minLength={8}
+              required
+              sx={{ width: "100%" }}
+            />
+          </Grid>
         </Grid>
         <Button
           variant="contained"
           onClick={handleSubmit}
-          sx={{ marginTop: "20px",width:'100%' }}
+          sx={{ marginTop: "20px", width: '100%' }}
         >
           Sign Up
         </Button>
@@ -137,7 +158,7 @@ const SignUp = () => {
               color: "#1876d1",
               cursor: "pointer",
             }}
-            onClick={()=>Navigate("/signin")}
+            onClick={() => Navigate("/signin")}
           >
             Sign In
           </Typography>

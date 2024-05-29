@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
+import {  Button } from '@mui/material';
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from '@mui/material/CardMedia';
@@ -20,6 +21,10 @@ const ProductList = () => {
     axios.get('http://127.0.0.1:5000/api/products', { headers: { Authorization: token } }).then((res) => setProducts(res?.data?.data)).catch(err => console.log(err));
   }
 
+  const deleteHandle = (id) => {
+    axios.delete(`http://127.0.0.1:5000/api/products/${id}`, { headers: { Authorization: token } }).then((res) => handleApi()).catch(err => console.log(err));
+  }
+
   return (
     <Box
       sx={{
@@ -32,7 +37,7 @@ const ProductList = () => {
     >
       {Object.values(products)?.map((e, i) => {
         return (
-          <Card key={i} sx={{ width: "300px", minHeight: "200px", cursor: "pointer" }} onClick={() => navigate('/product/' + e._id)}>
+          <Card key={i} sx={{ width: "300px", minHeight: "200px", cursor: "pointer" }} >
             <CardContent>
               <CardMedia
                 component="img"
@@ -61,6 +66,8 @@ const ProductList = () => {
               >
                 Rs {e.price} /-
               </Typography>
+              <Button onClick={() => navigate(`/productUpdate/${e._id}`)} > Update </Button>
+              <Button onClick={() => deleteHandle(e._id)} > Remove </Button>
             </CardContent>
           </Card>
         );

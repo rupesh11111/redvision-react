@@ -3,44 +3,43 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const SignIn = () => {
-  const [input, setInput] = useState({username:'',password:''});
-  const Navigate=useNavigate()
- 
+const SignIn = ({setToken}) => {
+  const [input, setInput] = useState({ email: '', password: '' });
+  const Navigate = useNavigate()
+
 
   const handleChange = (event) => {
-    const { name,value } = event.target;
+    const { name, value } = event.target;
 
     setInput({
-        ...input,
-        [name]:value
+      ...input,
+      [name]: value
     })
-}
-
+  }
 
   const handleSubmit = () => {
-
-    if(input.username === '' || input.password === ''){
-        alert("plz fill credentials")
-    }else{
-        console.log("Submitted form data:", input);
-        Navigate("/")
-    }
-
-
+    axios.post('http://127.0.0.1:8000/api/login', input).then((res) => {
+      localStorage.setItem('token',res?.data?.data?.token);
+      localStorage.setItem('user',JSON.stringify(res?.data?.data?.user));
+      setToken(res?.data?.data?.token)
+      Navigate('/');
+    }).catch((error) => {
+      console.log(error)
+    });
   };
-
+  
   return (
     <Box
       sx={{
-        height:'90vh',
+        height: '90vh',
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent:'center',
+        justifyContent: 'center',
         padding: "20px",
       }}
     >
@@ -58,12 +57,12 @@ const SignIn = () => {
             <Typography
               sx={{ textAlign: "left", lineHeight: "50px", fontWeight: "700" }}
             >
-              Username
+              Email
             </Typography>
             <TextField
-              label="Username"
-              name="username"
-              value={input?.username}
+              label="Email"
+              name="email"
+              value={input?.email}
               onChange={handleChange}
               required
               sx={{ width: "100%" }} // Full width on all screens
@@ -89,21 +88,21 @@ const SignIn = () => {
           </Grid>
         </Grid>
         <Button variant="contained" onClick={handleSubmit} sx={{ marginTop: "20px" }}>
-        Sign In
-      </Button>
-      <Box sx={{display:'flex',marginTop:'20px',gap:'2px'}}>
-      <Typography
-              sx={{ textAlign: "left", lineHeight: "50px",  }}
-            >
-              If you are not register ? 
-            </Typography>
-            <Typography
-              sx={{ textAlign: "left", lineHeight: "50px", color:'#1876d1', cursor:'pointer'  }}
-              onClick={()=>Navigate("/")}
-            >
-               Register
-            </Typography>
-      </Box>
+          Sign In
+        </Button>
+        <Box sx={{ display: 'flex', marginTop: '20px', gap: '2px' }}>
+          <Typography
+            sx={{ textAlign: "left", lineHeight: "50px", }}
+          >
+            If you are not register ?
+          </Typography>
+          <Typography
+            sx={{ textAlign: "left", lineHeight: "50px", color: '#1876d1', cursor: 'pointer' }}
+            onClick={() => Navigate("/signup")}
+          >
+            Register
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );
