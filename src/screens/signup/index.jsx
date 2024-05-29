@@ -27,7 +27,7 @@ const SignUp = ({setToken}) => {
   };
 
   const handleSubmit = () => {
-    axios.post('http://15.206.92.112/api/register', input).then((res) => {
+    axios.post('https://test.truequations.com/api/register', input).then((res) => {
       console.log(res.data.data);
       localStorage.setItem('token',res.data.data.token);
       localStorage.setItem('user',JSON.stringify(res?.data?.data?.user));

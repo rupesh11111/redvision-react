@@ -2,7 +2,7 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
  
 export const HttpService = axios.create({
-  baseURL: "http://15.206.92.112/api",
+  baseURL: "https://test.truequations.com/api",
 });
  
 HttpService.interceptors.request.use((config) => {
