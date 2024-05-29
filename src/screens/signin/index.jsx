@@ -52,6 +52,8 @@ const SignIn = ({setToken}) => {
         }}
       >
         <h1>Sign In</h1>
+
+        <h4>admin credentails - email="admin@admin.com" password="12345678"</h4>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography
